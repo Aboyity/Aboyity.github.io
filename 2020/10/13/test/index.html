@@ -7,13 +7,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Hexo</title>
+  <title> - Hexo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
 
   
   
+  <meta name="description" content="爬虫调度端-三个模块-价值数据URL管理器管理待抓取U..."> 
   
   <meta name="author" content="John Doe"> 
 
@@ -62,7 +63,7 @@
     var CONFIG = window.CONFIG || {};
     var ZHAOO = window.ZHAOO || {};
     CONFIG = {
-      isHome: true,
+      isHome: false,
       fancybox: true,
       pjax: false,
       lazyload: {
@@ -145,98 +146,78 @@
   </div>
 </nav>
   <main id="main">
-  
-    <div class="preview">
-  <nav class="navbar j-navbar-menu">
-    <i class="iconfont iconmenu"></i>
-  </nav>
-  <div class="preview-image">
-    <h2 class="preview-motto" id="motto"></h2>
-    <!-- <span class="preview-cursor">|</span> -->
-    
-    <div class="preview-overlay">
-      <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="preview-parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-        </g>
-      </svg>
-    </div>
-    
-  </div>
-  <div class="preview-scroll">
-    <a href="#container" class="smooth-scroll"><i class="iconfont iconMouse"></i></a>
-  </div>
-</div>
-  
   <div class="container" id="container">
-    <section class="row post">
-  
-  <div class="col-lg-4 col-md-6 col-sm-12 post-item">
-  <div class="post-wrap">
-    
-    <a href="/2020/10/13/test/" class="post-image">
-      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
-    </a>
-    <div class="post-content">
-      <h3 class="post-title"><a href="/2020/10/13/test/"></a></h3>
+    <article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title"></h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 13, 2020</span
+        class="post-info-item">
       
-      
-      
-      <div class="post-excerpt">
-        <p class="substr-3">爬虫调度端-三个模块-价值数据URL管理器管理待抓取URL集合和已抓取的URL集合，防止重复抓取和循环抓取
-
-内存关系数据库缓存数据库
-
-网页下载器将互联网URL下载到本地进行分析
-
-urlli...</p>
-      </div>
-      <div class="post-info">
-        <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 13, 2020</span
-          class="post-info-item">
-        
-        <span class="post-info-item"><i class="iconfont iconfont-size"></i>544</span>
-      </div>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>544</span>
     </div>
   </div>
-</div>
-  
-  <div class="col-lg-4 col-md-6 col-sm-12 post-item">
-  <div class="post-wrap">
-    
-    <a href="/2020/10/13/hello-world/" class="post-image">
-      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
-    </a>
-    <div class="post-content">
-      <h3 class="post-title"><a href="/2020/10/13/hello-world/">Hello World</a></h3>
-      
-      
-      
-      <div class="post-excerpt">
-        <p class="substr-3">Welcome to my first blog page!
-</p>
-      </div>
-      <div class="post-info">
-        <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 13, 2020</span
-          class="post-info-item">
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="爬虫调度端-三个模块-价值数据"><a href="#爬虫调度端-三个模块-价值数据" class="headerlink" title="爬虫调度端-三个模块-价值数据"></a>爬虫调度端-三个模块-价值数据</h1><h2 id="URL管理器"><a href="#URL管理器" class="headerlink" title="URL管理器"></a>URL管理器</h2><p>管理待抓取URL集合和已抓取的URL集合，防止重复抓取和循环抓取</p>
+<blockquote>
+<p>内存<br>关系数据库<br>缓存数据库</p>
+</blockquote>
+<h2 id="网页下载器"><a href="#网页下载器" class="headerlink" title="网页下载器"></a>网页下载器</h2><p>将互联网URL下载到本地进行分析</p>
+<blockquote>
+<p>urllib2<br>requests</p>
+</blockquote>
+<p>网页下载方法(urllib2)</p>
+<blockquote>
+<p>import urllib2<br>#直接请求<br>response = urllib2.urlopen(“<a target="_blank" rel="noopener" href="http://www.baidu.com&quot;/">http://www.baidu.com&quot;</a>)</p>
+</blockquote>
+<blockquote>
+<p>#添加data、http header<br>import urllib2<br>#创建request对象<br>request = urllib2.request(url)<br>#添加数据<br>request.add_data(‘a’, ‘1’)<br>#添加http的header<br>request.add_header(‘user-Agent’, ‘Mozilla/5.0’)<br>#发送请求获取结果<br>response = urllib2.urlopen(request)<br>#添加特殊情景的处理器<br>HTTPCookieProcessor/ProxyHandler/HTTPSHandler/HTTPRedirectHandler</p>
+</blockquote>
+<p>urllib2.Request<br>urllib2.urlopen(request)</p>
+<p>实例操作</p>
+<blockquote>
+</blockquote>
+<h2 id="网页解析器"><a href="#网页解析器" class="headerlink" title="网页解析器"></a>网页解析器</h2>
+      </section>
+      <section class="extra">
         
-        <span class="post-info-item"><i class="iconfont iconfont-size"></i>31</span>
-      </div>
-    </div>
+        
+        <section class="donate">
+  <div class="qrcode">
+    <img   class="lazyload" data-original="https://i.loli.net/2020/10/13/HZi2Dadc9Qjtfu3.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
   </div>
-</div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+        
+<nav class="nav">
+  
+  
+    <a href="/2020/10/13/hello-world/">Hello World<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
   
 </section>
-    <section class="paginator">
-  
-</section>
+      
+    </section>
+  </div>
+</article>
   </div>
 </main>
   <footer class="footer">
