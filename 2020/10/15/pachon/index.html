@@ -14,7 +14,8 @@
 
   
   
-  <meta name="description" content="爬虫调度端-三个模块-价值数据URL管理器管理待抓取U..."> 
+  <meta name="description" content="Pyhthon库安装/爬虫2020.10.15
+win..."> 
   
   <meta name="author" content="John Doe"> 
 
@@ -154,35 +155,30 @@
   <div class="head-mask">
     <h1 class="head-title"></h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 13, 2020</span
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 15, 2020</span
         class="post-info-item">
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>544</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>343</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
-        <h1 id="爬虫调度端-三个模块-价值数据"><a href="#爬虫调度端-三个模块-价值数据" class="headerlink" title="爬虫调度端-三个模块-价值数据"></a>爬虫调度端-三个模块-价值数据</h1><h2 id="URL管理器"><a href="#URL管理器" class="headerlink" title="URL管理器"></a>URL管理器</h2><p>管理待抓取URL集合和已抓取的URL集合，防止重复抓取和循环抓取</p>
-<blockquote>
-<p>内存<br>关系数据库<br>缓存数据库</p>
-</blockquote>
-<h2 id="网页下载器"><a href="#网页下载器" class="headerlink" title="网页下载器"></a>网页下载器</h2><p>将互联网URL下载到本地进行分析</p>
-<blockquote>
-<p>urllib2<br>requests</p>
-</blockquote>
-<p>网页下载方法(urllib2)</p>
-<blockquote>
-<p>import urllib2<br>#直接请求<br>response = urllib2.urlopen(“<a target="_blank" rel="noopener" href="http://www.baidu.com&quot;/">http://www.baidu.com&quot;</a>)</p>
+        <h1 id="Pyhthon库安装-爬虫"><a href="#Pyhthon库安装-爬虫" class="headerlink" title="Pyhthon库安装/爬虫"></a>Pyhthon库安装/爬虫</h1><h2 id="2020-10-15"><a href="#2020-10-15" class="headerlink" title="2020.10.15"></a>2020.10.15</h2><blockquote>
+<p>win + R<br>cmd<br>python -m pip install –upgrade pip    #升级pip库<br>pip install beautifulsoup4    #安装beautifulsoup4库</p>
 </blockquote>
 <blockquote>
-<p>#添加data、http header<br>import urllib2<br>#创建request对象<br>request = urllib2.request(url)<br>#添加数据<br>request.add_data(‘a’, ‘1’)<br>#添加http的header<br>request.add_header(‘user-Agent’, ‘Mozilla/5.0’)<br>#发送请求获取结果<br>response = urllib2.urlopen(request)<br>#添加特殊情景的处理器<br>HTTPCookieProcessor/ProxyHandler/HTTPSHandler/HTTPRedirectHandler</p>
+<p>Pycharm-File-settings-Project Interpreter-beautifulsoup4-Install Package</p>
 </blockquote>
-<p>urllib2.Request<br>urllib2.urlopen(request)</p>
-<p>实例操作</p>
-<blockquote>
-</blockquote>
-<h2 id="网页解析器"><a href="#网页解析器" class="headerlink" title="网页解析器"></a>网页解析器</h2>
+<ol>
+<li>基本的爬虫工作原理</li>
+<li>基本的http抓取工具：scrapy</li>
+<li>Bloom Filter: 是一个数据结构，可以用来判断某个元素是否在集合内，具有运行快速，内存占用小的特点</li>
+<li>大规模抓取，需要学习分布式爬虫概念</li>
+<li>rq和Scrapy的结合</li>
+<li>后续处理，网页析取，存储(Mongodb)</li>
+</ol>
+
       </section>
       <section class="extra">
         
