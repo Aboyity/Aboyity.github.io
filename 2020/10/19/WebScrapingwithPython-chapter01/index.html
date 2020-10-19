@@ -14,8 +14,8 @@
 
   
   
-  <meta name="description" content="Pyhthon库安装/爬虫2020.10.15
-win..."> 
+  <meta name="description" content="《Python网络爬虫权威指南》1.1 网络连接
+#查..."> 
   
   <meta name="author" content="John Doe"> 
 
@@ -155,29 +155,70 @@ win...">
   <div class="head-mask">
     <h1 class="head-title"></h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 15, 2020</span
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 19, 2020</span
         class="post-info-item">
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>343</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3103</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
-        <h1 id="Pyhthon库安装-爬虫"><a href="#Pyhthon库安装-爬虫" class="headerlink" title="Pyhthon库安装/爬虫"></a>Pyhthon库安装/爬虫</h1><h2 id="2020-10-15"><a href="#2020-10-15" class="headerlink" title="2020.10.15"></a>2020.10.15</h2><blockquote>
-<p>win + R<br>cmd<br>python -m pip install –upgrade pip    #升级pip库<br>pip install beautifulsoup4    #安装beautifulsoup4库</p>
+        <h2 id="《Python网络爬虫权威指南》"><a href="#《Python网络爬虫权威指南》" class="headerlink" title="《Python网络爬虫权威指南》"></a>《Python网络爬虫权威指南》</h2><h3 id="1-1-网络连接"><a href="#1-1-网络连接" class="headerlink" title="1.1 网络连接"></a>1.1 网络连接</h3><blockquote>
+<p>#查找Python的request模块（在urllib库中），只导入urlopen函数<br>from urllib.request import urlopen<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>print(html.read())</p>
+</blockquote>
+<p>urlopen用来打开并读取一个从网络获取的远程对象（可以轻松打开html文件，图像文件或者其他任何文件流）。</p>
+<h3 id="1-2-BeautifulSoup简介"><a href="#1-2-BeautifulSoup简介" class="headerlink" title="1.2 BeautifulSoup简介"></a>1.2 BeautifulSoup简介</h3><p>通过定位HTML标签来格式化和组织复杂的网页信息，用简单的Python对象为我们展现XML结构信息。BeautifulSoup库常用的对象恰好是BeautifulSoup对象：</p>
+<blockquote>
+<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), ‘html.parser’)<br>print(bs.h1)</p>
+</blockquote>
+<p>当创建一个BeautifulSoup对象时，需要传入两个参数：</p>
+<blockquote>
+<p>bs = BeautifulSoup(html.read(), ‘html.parser’)</p>
+</blockquote>
+<p>第一个参数是该对象所基于的HTML文本，第二个参数指定了你希望BeautifulSoup用来创建该对象的解析器。html.parser是Python3自带的解析器，另一个常用的是lxml。lxml和html.parser相比的优点在于解析“杂乱”或者包含错误语法的HTML代码的性能更优一些，但是缺点是必须单独安装，且依赖于第三方的C语言库。另一个常用的HTML解析器是html5lib，也是具有容错性的解析器，但是同样需要外部依赖。</p>
+<p><strong>可靠的网络连接以及异常处理</strong></p>
+<blockquote>
+<p>html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)</p>
+</blockquote>
+<p>这行代码主要会发生两种异常：</p>
+<ul>
+<li>网页在服务器上不存在（或者获取页面的时候出现错误）</li>
+<li>服务器不存在</li>
+</ul>
+<p>第一种异常出现时，程序会返回HTTP错误，HTTP错误可能是“404 Page Not Found” “500 Internet Server Error”等。urlopen函数会抛出HTTPError异常，可以用下面的方式处理这些异常：</p>
+<blockquote>
+<p>from urllib.request import urlopen<br>from urllib.error import HTTPError<br>try:<br>    html = html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>except HTTPError as e:<br>    print(e)<br>    #返回空值，中断程序<br>else:<br>    #程序继续。注意：如果已经在上面异常捕捉那一段代码中返回或者中断（break）<br>    #那么就不需要再使用else语句了，这段代码也不会执行</p>
+</blockquote>
+<p>如果程序返回HTTP错误代码，程序就会显示错误内容，不再执行else后面的语句</p>
+<p>第二种异常出现时（链接打不开或者URL链接写错了），urlopen会抛出一个URLError异常。这意味着获取不到服务器，可以检查下面代码：</p>
+<blockquote>
+<p>from urllib.request import urlopen<br>from urllib.error import HTTPError<br>from urllib.error import URLError<br>try:<br>    html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>except HTTPError as e:<br>    print(e)<br>except URLError as e:<br>print(“The server could not be found!”)<br>else:<br>print(“It Worked!”)</p>
+</blockquote>
+<p>当调用BeautifulSoup对象里面的一个标签时，增加一个检查条件以保证标签确实存在是很聪明的做法，但想调用的标签不存在时，BeautifulSoup就会返回None对象。</p>
+<blockquote>
+<p>print(bs.nonExitentTag)</p>
+</blockquote>
+<p>会返回一个None对象，如果不检查而直接调用这个None对象里面的子标签，会有麻烦，如下：</p>
+<blockquote>
+<p>print(bs.nonExistentTag.someTag)</p>
+</blockquote>
+<p>此时会返回一个异常：</p>
+<blockquote>
+<p>AttributeError: ‘NoneType’ object has no attribute ‘someTag’</p>
+</blockquote>
+<p>为避免这两种异常情形，最简单的方法是对这两种情形进行检查：</p>
+<blockquote>
+<p>try:<br>    badContent = bs.nonExistingTag.anotherTag<br>except AttributeError as e:<br>    print(‘Tag was not found’)<br>else:<br>    if badContent == None:<br>        print(‘Tag was not found’)<br>    else:<br>        print(badContent)</p>
+</blockquote>
+<p>综合以上错误类型以及检查代码，可以将之前的爬虫代码重新书写：</p>
+<blockquote>
+<p>from urllib.request import urlopen<br>from urllib.error import HTTPError<br>from bs4 import BeautifulSoup<br>def getTitle(url):<br>    try:<br>        html = urlopen(url)<br>    except HTTPError as e:<br>        return None<br>    try:<br>        bs = BeautifulSoup(html.read(), ‘html.parser’)<br>        title = bs.body.h1<br>    except AttributeError as e:<br>        return None<br>        return title<br>title = getTitle(‘<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&#39;">http://www.pythonscraping.com/pages/page1.html&#39;</a>)<br>if title == None:<br>    print(‘Title could not be found’)<br>else:<br>    print(title)</p>
 </blockquote>
 <blockquote>
-<p>Pycharm-File-settings-Project Interpreter-beautifulsoup4-Install Package</p>
+<p><em>Title could not be found</em></p>
 </blockquote>
-<ol>
-<li>基本的爬虫工作原理</li>
-<li>基本的http抓取工具：scrapy</li>
-<li>Bloom Filter: 是一个数据结构，可以用来判断某个元素是否在集合内，具有运行快速，内存占用小的特点</li>
-<li>大规模抓取，需要学习分布式爬虫概念</li>
-<li>rq和Scrapy的结合</li>
-<li>后续处理，网页析取，存储(Mongodb)</li>
-</ol>
+<p>上面我们创建了一个getTitle函数，可以返回网页的标题，在获取网页的过程中遇见问题则会返回一个None对象，在getTitle函数里面，检查了HTTRError，和由于URL输入错误引起的URLError，再将这两行封装在一个try语句中。这两行中的任何一行有问题，都可能抛出AttributeError（如果服务器不存在，html就是一个None对象，html.read()就会抛出AttributeError），可以在try中放入任意多行代码，或者调用一个在任意位置都可以抛出AttributeError的函数。</p>
 
       </section>
       <section class="extra">
@@ -197,8 +238,8 @@ win...">
         
 <nav class="nav">
   
-    <a href="/2020/10/19/WebScrapingwithPython-chapter01/"><i class="iconfont iconleft"></i></a>
   
+    <a href="/2020/10/15/pachon/"><i class="iconfont iconright"></i></a>
   
 </nav>
 
