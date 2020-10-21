@@ -14,8 +14,7 @@
 
   
   
-  <meta name="description" content="复杂HTML解析
-基于位置、上下文、属性和内容选择标签..."> 
+  <meta name="description" content="复杂HTML解析基于位置、上下文、属性和内容选择标签的..."> 
   
   <meta name="author" content="John Doe"> 
 
@@ -158,45 +157,40 @@
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 21, 2020</span
         class="post-info-item">
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3992</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3762</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
-        <h2 id="复杂HTML解析"><a href="#复杂HTML解析" class="headerlink" title="复杂HTML解析"></a>复杂HTML解析</h2><ol>
-<li><p>基于位置、上下文、属性和内容选择标签的标准方式和创新方式去编写稳定可靠的爬虫；</p>
-</li>
-<li><p>基本上遇见的网站都有层叠样式表（cascading style sheet, CSS），CSS可以让HTML元素呈现出差异化，使那些具有完全相同修饰的元素呈现出不同的样式，例如某页面中小说人物的对话内容是红色的，任务名称是绿色的，可以看见网页源代码中的span标签引用了对应的CSS属性：</p>
+        <h2 id="复杂HTML解析"><a href="#复杂HTML解析" class="headerlink" title="复杂HTML解析"></a>复杂HTML解析</h2><p><strong>基于位置、上下文、属性和内容选择标签的标准方式和创新方式去编写稳定可靠的爬虫；</strong></p>
+<p><strong>基本上遇见的网站都有层叠样式表（cascading style sheet, CSS），CSS可以让HTML元素呈现出差异化，使那些具有完全相同修饰的元素呈现出不同的样式，例如某页面中小说人物的对话内容是红色的，任务名称是绿色的，可以看见网页源代码中的span标签引用了对应的CSS属性：</strong></p>
 <blockquote>
 <p>&lt; span class = “red” &gt;Heavens! what a virulent attack! &lt; /span &gt; replied<br>&lt; span class = “green” &gt;the prince &lt; /span &gt;, not in the least disconnected<br>by this reception.</p>
 </blockquote>
-<p>可以和之前01章节一样用类似的程序抓取整个页面，然后创建一个BeautifulSoup对象：</p>
+<p><strong>可以和之前01章节一样用类似的程序抓取整个页面，然后创建一个BeautifulSoup对象：</strong></p>
 <blockquote>
-<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>#用find_all函数提取只包含在&lt; span class = “green” &gt; &lt; /span &gt;标签中的文字，这样会得到人物名称的Python列表<br>nameList = bs.findAll(‘span’, {“class” : “green”})<br>for name in nameList:</p>
-<pre><code>print(name.get_text()) </code></pre>
+<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>#用find_all函数提取只包含在&lt; span class = “green” &gt; &lt; /span &gt;标签中的文字，这样会得到人物名称的Python列表<br>nameList = bs.findAll(‘span’, {“class” : “green”})<br>for name in nameList:<br>    print(name.get_text()) </p>
 </blockquote>
 <p>.get_text()会清楚正在处理的HTML文档中的所有标签，然后返回一个Unicode字符串。通常在准备打印、存储或者操作最终数据时，应该最后才使用.get_text()。</p>
-<ol start="3">
-<li><p>BeautifulSoup中的find()和find_all()是较为常用的两个函数，BeautifulSoup文档中这样定义:</p>
-<blockquote>
+<h4 id="BeautifulSoup中的find-和find-all-是较为常用的两个函数，BeautifulSoup文档中这样定义"><a href="#BeautifulSoup中的find-和find-all-是较为常用的两个函数，BeautifulSoup文档中这样定义" class="headerlink" title="BeautifulSoup中的find()和find_all()是较为常用的两个函数，BeautifulSoup文档中这样定义:"></a>BeautifulSoup中的find()和find_all()是较为常用的两个函数，BeautifulSoup文档中这样定义:</h4><blockquote>
 <p>find_all(tag, attributes, recursive, text, limit, keywords)<br>find(tag, attributes, recursive, text, keywords)</p>
 </blockquote>
-<p>标签tag：可以传递一个标签的名称或者多个标签名称组成的Python列表做标签参数。</p>
+<p><strong>标签tag</strong>可以传递一个标签的名称或者多个标签名称组成的Python列表做标签参数。</p>
 <blockquote>
 <p>#返回一个包含HTML文档中所有标题标签的列表<br>.find_all([‘h1’, ‘h2’, ‘h3’, ‘h4’, ‘h5’, ‘h6’])</p>
 </blockquote>
-<p>属性attribute使用Python字典封装一个标签的若干属性和对应的属性值，例如：</p>
+<p><strong>属性attribute</strong>使用Python字典封装一个标签的若干属性和对应的属性值，例如：</p>
 <blockquote>
 <p>#函数会返回HTML文档中绿色和红色两种颜色的span标签<br>.find_all(‘span’, {‘class’ : {‘green’, ‘red’}})</p>
 </blockquote>
-<p>递归参数recursive是一个布尔变量，recursive设置为False则find_all只会查找文档的一级标签；find_all支持递归查找，默认为True，find_all会根据要求去查找标签参数的所有子标签，以及子标签的子标签；</p>
-<p>文本参数text是用标签的文本内容去匹配，而非标签的属性。假如我们想查找前面网页中包含“the prince”内容的标签数量，可以将之前的find_all方法替换成下面代码：</p>
+<p><strong>递归参数recursive</strong>是一个布尔变量，recursive设置为False则find_all只会查找文档的一级标签；find_all支持递归查找，默认为True，find_all会根据要求去查找标签参数的所有子标签，以及子标签的子标签；</p>
+<p><strong>文本参数text</strong>是用标签的文本内容去匹配，而非标签的属性。假如我们想查找前面网页中包含“the prince”内容的标签数量，可以将之前的find_all方法替换成下面代码 ：</p>
 <blockquote>
 <p>nameList = bs.find_all(text = ‘the prince’)<br>print(len(nameLisr)</p>
 </blockquote>
-<p>范围显示参数limit只用于find_all方法，find其实等价于limit等于1时的find_all。</p>
-<p>keyword可以让你选择那些具有指定属性的标签：</p>
+<p><strong>范围显示参数limit</strong>只用于find_all方法，find其实等价于limit等于1时的find_all。</p>
+<p><strong>keyword</strong>可以让你选择那些具有指定属性的标签：</p>
 <blockquote>
 <p>#返回第一个在class_属性中包含单词text并且在id属性中包含title的标签<br>title = bs.find_all(id = ‘title’, class = ‘text’)</p>
 </blockquote>
@@ -204,46 +198,25 @@
 <blockquote>
 <p>title = bs.find(id = ‘title’)</p>
 </blockquote>
-<ol start="4">
-<li>BeautifulSoup库中一般常用的对象有四种：BeautifulSoup对象，标签Tag对象，NavigableString对象，Comment对象；</li>
-</ol>
+<p><strong>BeautifulSoup库中一般常用的对象有四种：BeautifulSoup对象，标签Tag对象，NavigableString对象，Comment对象；</strong></p>
 <blockquote>
 <p>#BeautifulSoup对象<br>bs<br>#标签Tag对象通过find或find_all，或直接调用子标签获取的一列对象或单个对象<br>bs.div.h1<br>#NavigableString对象用来表示标签里的文字而非标签本身<br>#Comment对象用来查找HTML文档的注释标签，例如&lt; !–xxxx–&gt;</p>
 </blockquote>
-<ol start="5">
-<li><p>导航树：需要通过标签在文档中的位置来查找标签。在BeautifulSoup库中，孩子（child）和后代（descendant）有显著的不同，和人类的家谱一样，子标签是父标签的下一级，而后代标签是指父标签下面所有级别的标签。例如：tr标签是table标签的子标签，而tr，th，td，img和span标签都是table标签的后代标签。所有的子标签都是后代标签，但不是所有的后代标签都是子标签。一般情况下，BeautifulSoup函数总是处理当前标签的后代标签，例如bs.body.h1选择了body标签后代里面的第一个h1标签，而不会去找body外面的标签；类似的bs.div.find_all(‘img’)会找出文档的第一个div标签，然后获取div后代里所有的img标签列表。</p>
+<p><strong>导航树：需要通过标签在文档中的位置来查找标签。在BeautifulSoup库中，孩子（child）和后代（descendant）有显著的不同，和人类的家谱一样，子标签是父标签的下一级，而后代标签是指父标签下面所有级别的标签。例如：tr标签是table标签的子标签，而tr，th，td，img和span标签都是table标签的后代标签。所有的子标签都是后代标签，但不是所有的后代标签都是子标签。一般情况下，BeautifulSoup函数总是处理当前标签的后代标签，例如bs.body.h1选择了body标签后代里面的第一个h1标签，而不会去找body外面的标签；类似的bs.div.find_all(‘img’)会找出文档的第一个div标签，然后获取div后代里所有的img标签列表。</strong></p>
 <blockquote>
-<p>#.children标签可以找出子标签<br>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>for child in bs.find(‘table’, {‘id’ : ‘giftlist’}).children:</p>
-<pre><code>print(child)</code></pre>
+<p>#.children标签可以找出子标签<br>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>for child in bs.find(‘table’, {‘id’ : ‘giftlist’}).children:<br>    print(child)</p>
 </blockquote>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<pre><code>  上述代码会打印giftList表格中所有产品的数据行，包括最开始的列名行，如果用decendants()函数而不是children()函数，则会打印出二十几个标签，包括后面的img，span以及每个td标签。
-
-  6. 处理兄弟标签：BeautifulSoup中的next_siblings()函数会使从表格中收集数据变得十分简单，尤其是带有标题行的表格：[sibling:兄弟姐妹]
-
-     &gt; from urllib.request import urlopen
-     &gt; from bs4 import BeautifulSoup
-     &gt; html = urlopen(&quot;http://www.pythonscraping.com/pages/page1.html&quot;)
-     &gt; bs = BeautifulSoup(html.read(), &quot;html.parser&quot;)
-     &gt; for sibling in bs.find(&#39;table&#39;, &#123;&#39;id&#39; : &#39;giftList&#39;&#125;).tr.next_siblings:
-     &gt;     print(sibling)
-
-     这段代码会打印除了第一行表格标题所有行的产品，这个函数只调用后面的兄弟标签，如果选择一组标签中位于中间位置的一个标签，然后调用next_siblings()函数，那么只会返回在它后面的兄弟标签。还有previous_siblings()函数，会调用前面的兄弟标签。以及只返回单个的标签，例如previous_sibling()函数和next_sibling()函数智慧返回对应的前、后单个标签。
-
-  7. 抓取网页时，查找父标签的频率要远远低于查找子标签，如果以抓取网页内容为目的去观察HTML页面，都是从最上层标签开始的，然后思考如何定位想要的数据块的位置。偶尔情况下也会用到BeautifulSoup的父标签查找函数parent和parents：
-
-  &gt; from urllib.request import urlopen
-  &gt; from bs4 import BeautifulSoup
-  &gt; html = urlopen(&quot;http://www.pythonscraping.com/pages/page1.html&quot;)
-  &gt; bs = BeautifulSoup(html.read(), &quot;html.parser&quot;)
-  &gt; print(bs.find(&#39;img&#39;, &#123;&#39;src&#39; : &#39;../img/gifts/img1.jpg&#39;&#125;).parent.previous_sibling.get_text())
-
-  这段代码会打印../img/gifts/img1.jpg这个图片所对应的商品的价格。其实是更具HTML页面的部分结构进行定位得到的结果。</code></pre>
+<p>上述代码会打印giftList表格中所有产品的数据行，包括最开始的列名行，如果用decendants()函数而不是children()函数，则会打印出二十几个标签，包括后面的img，span以及每个td标签。</p>
+<p><strong>处理兄弟标签：BeautifulSoup中的next_siblings()函数会使从表格中收集数据变得十分简单，尤其是带有标题行的表格：</strong>[sibling:兄弟姐妹]</p>
+<blockquote>
+<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>for sibling in bs.find(‘table’, {‘id’ : ‘giftList’}).tr.next_siblings:<br>    print(sibling)</p>
+</blockquote>
+<p>这段代码会打印除了第一行表格标题所有行的产品，这个函数只调用后面的兄弟标签，如果选择一组标签中位于中间位置的一个标签，然后调用next_siblings()函数，那么只会返回在它后面的兄弟标签。还有previous_siblings()函数，会调用前面的兄弟标签。以及只返回单个的标签，例如previous_sibling()函数和next_sibling()函数智慧返回对应的前、后单个标签。</p>
+<p><strong>抓取网页时，查找父标签的频率要远远低于查找子标签，如果以抓取网页内容为目的去观察HTML页面，都是从最上层标签开始的，然后思考如何定位想要的数据块的位置。偶尔情况下也会用到BeautifulSoup的父标签查找函数parent和parents：</strong></p>
+<blockquote>
+<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>print(bs.find(‘img’, {‘src’ : ‘../img/gifts/img1.jpg’}).parent.previous_sibling.get_text())</p>
+</blockquote>
+<p>这段代码会打印../img/gifts/img1.jpg这个图片所对应的商品的价格。其实是根据HTML页面的部分结构进行定位得到的结果。</p>
 
       </section>
       <section class="extra">
