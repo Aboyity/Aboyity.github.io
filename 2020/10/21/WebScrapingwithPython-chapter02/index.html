@@ -14,8 +14,8 @@
 
   
   
-  <meta name="description" content="《Python网络爬虫权威指南》1.1 网络连接
-#查..."> 
+  <meta name="description" content="复杂HTML解析
+基于位置、上下文、属性和内容选择标签..."> 
   
   <meta name="author" content="John Doe"> 
 
@@ -155,70 +155,95 @@
   <div class="head-mask">
     <h1 class="head-title"></h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 19, 2020</span
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 21, 2020</span
         class="post-info-item">
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3103</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3992</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
-        <h2 id="《Python网络爬虫权威指南》"><a href="#《Python网络爬虫权威指南》" class="headerlink" title="《Python网络爬虫权威指南》"></a>《Python网络爬虫权威指南》</h2><h3 id="1-1-网络连接"><a href="#1-1-网络连接" class="headerlink" title="1.1 网络连接"></a>1.1 网络连接</h3><blockquote>
-<p>#查找Python的request模块（在urllib库中），只导入urlopen函数<br>from urllib.request import urlopen<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>print(html.read())</p>
-</blockquote>
-<p>urlopen用来打开并读取一个从网络获取的远程对象（可以轻松打开html文件，图像文件或者其他任何文件流）。</p>
-<h3 id="1-2-BeautifulSoup简介"><a href="#1-2-BeautifulSoup简介" class="headerlink" title="1.2 BeautifulSoup简介"></a>1.2 BeautifulSoup简介</h3><p>通过定位HTML标签来格式化和组织复杂的网页信息，用简单的Python对象为我们展现XML结构信息。BeautifulSoup库常用的对象恰好是BeautifulSoup对象：</p>
+        <h2 id="复杂HTML解析"><a href="#复杂HTML解析" class="headerlink" title="复杂HTML解析"></a>复杂HTML解析</h2><ol>
+<li><p>基于位置、上下文、属性和内容选择标签的标准方式和创新方式去编写稳定可靠的爬虫；</p>
+</li>
+<li><p>基本上遇见的网站都有层叠样式表（cascading style sheet, CSS），CSS可以让HTML元素呈现出差异化，使那些具有完全相同修饰的元素呈现出不同的样式，例如某页面中小说人物的对话内容是红色的，任务名称是绿色的，可以看见网页源代码中的span标签引用了对应的CSS属性：</p>
 <blockquote>
-<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), ‘html.parser’)<br>print(bs.h1)</p>
+<p>&lt; span class = “red” &gt;Heavens! what a virulent attack! &lt; /span &gt; replied<br>&lt; span class = “green” &gt;the prince &lt; /span &gt;, not in the least disconnected<br>by this reception.</p>
 </blockquote>
-<p>当创建一个BeautifulSoup对象时，需要传入两个参数：</p>
+<p>可以和之前01章节一样用类似的程序抓取整个页面，然后创建一个BeautifulSoup对象：</p>
 <blockquote>
-<p>bs = BeautifulSoup(html.read(), ‘html.parser’)</p>
+<p>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>#用find_all函数提取只包含在&lt; span class = “green” &gt; &lt; /span &gt;标签中的文字，这样会得到人物名称的Python列表<br>nameList = bs.findAll(‘span’, {“class” : “green”})<br>for name in nameList:</p>
+<pre><code>print(name.get_text()) </code></pre>
 </blockquote>
-<p>第一个参数是该对象所基于的HTML文本，第二个参数指定了你希望BeautifulSoup用来创建该对象的解析器。html.parser是Python3自带的解析器，另一个常用的是lxml。lxml和html.parser相比的优点在于解析“杂乱”或者包含错误语法的HTML代码的性能更优一些，但是缺点是必须单独安装，且依赖于第三方的C语言库。另一个常用的HTML解析器是html5lib，也是具有容错性的解析器，但是同样需要外部依赖。</p>
-<p><strong>可靠的网络连接以及异常处理</strong></p>
+<p>.get_text()会清楚正在处理的HTML文档中的所有标签，然后返回一个Unicode字符串。通常在准备打印、存储或者操作最终数据时，应该最后才使用.get_text()。</p>
+<ol start="3">
+<li><p>BeautifulSoup中的find()和find_all()是较为常用的两个函数，BeautifulSoup文档中这样定义:</p>
 <blockquote>
-<p>html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)</p>
+<p>find_all(tag, attributes, recursive, text, limit, keywords)<br>find(tag, attributes, recursive, text, keywords)</p>
 </blockquote>
-<p>这行代码主要会发生两种异常：</p>
-<ul>
-<li>网页在服务器上不存在（或者获取页面的时候出现错误）</li>
-<li>服务器不存在</li>
-</ul>
-<p>第一种异常出现时，程序会返回HTTP错误，HTTP错误可能是“404 Page Not Found” “500 Internet Server Error”等。urlopen函数会抛出HTTPError异常，可以用下面的方式处理这些异常：</p>
+<p>标签tag：可以传递一个标签的名称或者多个标签名称组成的Python列表做标签参数。</p>
 <blockquote>
-<p>from urllib.request import urlopen<br>from urllib.error import HTTPError<br>try:<br>    html = html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>except HTTPError as e:<br>    print(e)<br>    #返回空值，中断程序<br>else:<br>    #程序继续。注意：如果已经在上面异常捕捉那一段代码中返回或者中断（break）<br>    #那么就不需要再使用else语句了，这段代码也不会执行</p>
+<p>#返回一个包含HTML文档中所有标题标签的列表<br>.find_all([‘h1’, ‘h2’, ‘h3’, ‘h4’, ‘h5’, ‘h6’])</p>
 </blockquote>
-<p>如果程序返回HTTP错误代码，程序就会显示错误内容，不再执行else后面的语句</p>
-<p>第二种异常出现时（链接打不开或者URL链接写错了），urlopen会抛出一个URLError异常。这意味着获取不到服务器，可以检查下面代码：</p>
+<p>属性attribute使用Python字典封装一个标签的若干属性和对应的属性值，例如：</p>
 <blockquote>
-<p>from urllib.request import urlopen<br>from urllib.error import HTTPError<br>from urllib.error import URLError<br>try:<br>    html = urlopen(“<a target="_blank" rel="noopener" href="http://pythonscraping.com/pages/page1.html&quot;">http://pythonscraping.com/pages/page1.html&quot;</a>)<br>except HTTPError as e:<br>    print(e)<br>except URLError as e:<br>print(“The server could not be found!”)<br>else:<br>print(“It Worked!”)</p>
+<p>#函数会返回HTML文档中绿色和红色两种颜色的span标签<br>.find_all(‘span’, {‘class’ : {‘green’, ‘red’}})</p>
 </blockquote>
-<p>当调用BeautifulSoup对象里面的一个标签时，增加一个检查条件以保证标签确实存在是很聪明的做法，但想调用的标签不存在时，BeautifulSoup就会返回None对象。</p>
+<p>递归参数recursive是一个布尔变量，recursive设置为False则find_all只会查找文档的一级标签；find_all支持递归查找，默认为True，find_all会根据要求去查找标签参数的所有子标签，以及子标签的子标签；</p>
+<p>文本参数text是用标签的文本内容去匹配，而非标签的属性。假如我们想查找前面网页中包含“the prince”内容的标签数量，可以将之前的find_all方法替换成下面代码：</p>
 <blockquote>
-<p>print(bs.nonExitentTag)</p>
+<p>nameList = bs.find_all(text = ‘the prince’)<br>print(len(nameLisr)</p>
 </blockquote>
-<p>会返回一个None对象，如果不检查而直接调用这个None对象里面的子标签，会有麻烦，如下：</p>
+<p>范围显示参数limit只用于find_all方法，find其实等价于limit等于1时的find_all。</p>
+<p>keyword可以让你选择那些具有指定属性的标签：</p>
 <blockquote>
-<p>print(bs.nonExistentTag.someTag)</p>
+<p>#返回第一个在class_属性中包含单词text并且在id属性中包含title的标签<br>title = bs.find_all(id = ‘title’, class = ‘text’)</p>
 </blockquote>
-<p>此时会返回一个异常：</p>
+<p>以下代码能达到同样结果：</p>
 <blockquote>
-<p>AttributeError: ‘NoneType’ object has no attribute ‘someTag’</p>
+<p>title = bs.find(id = ‘title’)</p>
 </blockquote>
-<p>为避免这两种异常情形，最简单的方法是对这两种情形进行检查：</p>
+<ol start="4">
+<li>BeautifulSoup库中一般常用的对象有四种：BeautifulSoup对象，标签Tag对象，NavigableString对象，Comment对象；</li>
+</ol>
 <blockquote>
-<p>try:<br>    badContent = bs.nonExistingTag.anotherTag<br>except AttributeError as e:<br>    print(‘Tag was not found’)<br>else:<br>    if badContent == None:<br>        print(‘Tag was not found’)<br>    else:<br>        print(badContent)</p>
+<p>#BeautifulSoup对象<br>bs<br>#标签Tag对象通过find或find_all，或直接调用子标签获取的一列对象或单个对象<br>bs.div.h1<br>#NavigableString对象用来表示标签里的文字而非标签本身<br>#Comment对象用来查找HTML文档的注释标签，例如&lt; !–xxxx–&gt;</p>
 </blockquote>
-<p>综合以上错误类型以及检查代码，可以将之前的爬虫代码重新书写：</p>
+<ol start="5">
+<li><p>导航树：需要通过标签在文档中的位置来查找标签。在BeautifulSoup库中，孩子（child）和后代（descendant）有显著的不同，和人类的家谱一样，子标签是父标签的下一级，而后代标签是指父标签下面所有级别的标签。例如：tr标签是table标签的子标签，而tr，th，td，img和span标签都是table标签的后代标签。所有的子标签都是后代标签，但不是所有的后代标签都是子标签。一般情况下，BeautifulSoup函数总是处理当前标签的后代标签，例如bs.body.h1选择了body标签后代里面的第一个h1标签，而不会去找body外面的标签；类似的bs.div.find_all(‘img’)会找出文档的第一个div标签，然后获取div后代里所有的img标签列表。</p>
 <blockquote>
-<p>from urllib.request import urlopen<br>from urllib.error import HTTPError<br>from bs4 import BeautifulSoup<br>def getTitle(url):<br>    try:<br>        html = urlopen(url)<br>    except HTTPError as e:<br>        return None<br>    try:<br>        bs = BeautifulSoup(html.read(), ‘html.parser’)<br>        title = bs.body.h1<br>    except AttributeError as e:<br>        return None<br>        return title<br>title = getTitle(‘<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&#39;">http://www.pythonscraping.com/pages/page1.html&#39;</a>)<br>if title == None:<br>    print(‘Title could not be found’)<br>else:<br>    print(title)</p>
+<p>#.children标签可以找出子标签<br>from urllib.request import urlopen<br>from bs4 import BeautifulSoup<br>html = urlopen(“<a target="_blank" rel="noopener" href="http://www.pythonscraping.com/pages/page1.html&quot;">http://www.pythonscraping.com/pages/page1.html&quot;</a>)<br>bs = BeautifulSoup(html.read(), “html.parser”)<br>for child in bs.find(‘table’, {‘id’ : ‘giftlist’}).children:</p>
+<pre><code>print(child)</code></pre>
 </blockquote>
-<blockquote>
-<p><em>Title could not be found</em></p>
-</blockquote>
-<p>上面我们创建了一个getTitle函数，可以返回网页的标题，在获取网页的过程中遇见问题则会返回一个None对象，在getTitle函数里面，检查了HTTRError，和由于URL输入错误引起的URLError，再将这两行封装在一个try语句中。这两行中的任何一行有问题，都可能抛出AttributeError（如果服务器不存在，html就是一个None对象，html.read()就会抛出AttributeError），可以在try中放入任意多行代码，或者调用一个在任意位置都可以抛出AttributeError的函数。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>  上述代码会打印giftList表格中所有产品的数据行，包括最开始的列名行，如果用decendants()函数而不是children()函数，则会打印出二十几个标签，包括后面的img，span以及每个td标签。
+
+  6. 处理兄弟标签：BeautifulSoup中的next_siblings()函数会使从表格中收集数据变得十分简单，尤其是带有标题行的表格：[sibling:兄弟姐妹]
+
+     &gt; from urllib.request import urlopen
+     &gt; from bs4 import BeautifulSoup
+     &gt; html = urlopen(&quot;http://www.pythonscraping.com/pages/page1.html&quot;)
+     &gt; bs = BeautifulSoup(html.read(), &quot;html.parser&quot;)
+     &gt; for sibling in bs.find(&#39;table&#39;, &#123;&#39;id&#39; : &#39;giftList&#39;&#125;).tr.next_siblings:
+     &gt;     print(sibling)
+
+     这段代码会打印除了第一行表格标题所有行的产品，这个函数只调用后面的兄弟标签，如果选择一组标签中位于中间位置的一个标签，然后调用next_siblings()函数，那么只会返回在它后面的兄弟标签。还有previous_siblings()函数，会调用前面的兄弟标签。以及只返回单个的标签，例如previous_sibling()函数和next_sibling()函数智慧返回对应的前、后单个标签。
+
+  7. 抓取网页时，查找父标签的频率要远远低于查找子标签，如果以抓取网页内容为目的去观察HTML页面，都是从最上层标签开始的，然后思考如何定位想要的数据块的位置。偶尔情况下也会用到BeautifulSoup的父标签查找函数parent和parents：
+
+  &gt; from urllib.request import urlopen
+  &gt; from bs4 import BeautifulSoup
+  &gt; html = urlopen(&quot;http://www.pythonscraping.com/pages/page1.html&quot;)
+  &gt; bs = BeautifulSoup(html.read(), &quot;html.parser&quot;)
+  &gt; print(bs.find(&#39;img&#39;, &#123;&#39;src&#39; : &#39;../img/gifts/img1.jpg&#39;&#125;).parent.previous_sibling.get_text())
+
+  这段代码会打印../img/gifts/img1.jpg这个图片所对应的商品的价格。其实是更具HTML页面的部分结构进行定位得到的结果。</code></pre>
 
       </section>
       <section class="extra">
@@ -238,8 +263,8 @@
         
 <nav class="nav">
   
-    <a href="/2020/10/21/WebScrapingwithPython-chapter02/"><i class="iconfont iconleft"></i></a>
   
+    <a href="/2020/10/19/WebScrapingwithPython-chapter01/"><i class="iconfont iconright"></i></a>
   
 </nav>
 
