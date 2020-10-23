@@ -7,13 +7,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Archive - Hexo</title>
+  <title> - Hexo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
 
   
   
+  <meta name="description" content="正则表达式（regex）正则表达式相关定义和常见的表达..."> 
   
   <meta name="author" content="John Doe"> 
 
@@ -103,14 +104,6 @@
   
 
 
-<nav class="navbar">
-  <div class="left"></div>
-  <div class="center">归档</div>
-  <div class="right">
-    <i class="iconfont iconmenu j-navbar-menu"></i>
-  </div>
-</nav>
-
   <nav class="menu">
   <div class="menu-wrap">
     <div class="menu-close">
@@ -153,35 +146,103 @@
   </div>
 </nav>
   <main id="main">
-  <section class="archive">
-    <div class="archive-container">
-      <div class="archive-post">
-        <h3 class="archive-total">归档: 3 篇</h3>
-        
-        
-        
-        <h3 class="archive-year">2020 年</h3>
-        
-        <div class="archive-item">
-          <a class="archive-date" href="/2020/10/23/WebScrapingwithPython-regex/">October 23</a>
-          <a class="archive-title" href="/2020/10/23/WebScrapingwithPython-regex/"></a>
-        </div>
-        
-        
-        <div class="archive-item">
-          <a class="archive-date" href="/2020/10/21/WebScrapingwithPython-chapter02/">October 21</a>
-          <a class="archive-title" href="/2020/10/21/WebScrapingwithPython-chapter02/"></a>
-        </div>
-        
-        
-        <div class="archive-item">
-          <a class="archive-date" href="/2020/10/19/WebScrapingwithPython-chapter01/">October 19</a>
-          <a class="archive-title" href="/2020/10/19/WebScrapingwithPython-chapter01/"></a>
-        </div>
-        
-      </div>
+  <div class="container" id="container">
+    <article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title"></h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 23, 2020</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1362</span>
     </div>
-  </section>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="正则表达式（regex）"><a href="#正则表达式（regex）" class="headerlink" title="正则表达式（regex）"></a>正则表达式（regex）</h2><p><strong>正则表达式相关定义和常见的表达式符号</strong></p>
+<ol>
+<li>正则表达式能识别正则字符串（regular string），正则字符串是任意可以用一系列线性规则构成的字符串：<br>字母”a”至少出现一次；<br>后面跟着字符”b”，重复5次；<br>后面再跟字符”c”，重复任意偶数次；<br>最后一个字母是”d”或者”e”<br>满足上述规则的字符串有”aaaannnnccccd”等无数种变化。</li>
+</ol>
+<p>正则表达式就是表达这组规则的一种快捷方式：aa* bbbbb(cc) *(d|e)</p>
+<ol start="2">
+<li><p>Python中常用的12个正则表达式符号</p>
+<blockquote>
+<p>*重复前面的字符、子表达式、或者括号里的数字0次或多次；<br>+匹配前面的字符、子表达式、或者括号里的数字至少1次；<br>[]匹配中括号中的任意一个，相当于”任选一个“；<br>()表达式编组，在正则表达式的规则里编组会优先运行；<br>{m,n}匹配前面的字符，子表达式或括号里的字符m到n次（包含m或n）；<br>[^]匹配任意一个不在中括号中的字符；<br>|匹配任意一个由竖线分割的字符、子表达式；<br>.匹配任意单个字符(包括符号，数字和空格等)；<br>^指字符串位置开始的字符或子表达式；<br>\转义字符（把有特殊含义的字符转换成字面形式）；<br>$经常用于正则表达式的末尾，表示”从字符串的末尾匹配“，如果不加上则类似于末尾存在 *，可以看成是^的反义词；<br>？！”不包含“，组合一般放在字符或正则表达式的前面，表示字符不能出现在目标字符串中。如果要在字符串中彻底删除某个字符，就加上^和$符号。</p>
+</blockquote>
+<p>示例：</p>
+<blockquote>
+<p>a* b* - abbbb, bbbb<br>a+b - aaaab，(a* b)+ - aaabaaab<br>[A-Z]* - APPLE<br>(a* b)* - aaaabaab<br>a{2,3}b{2,3} - aabbb, aaabb<br>[ ^ A-Z]* - apple, lowercase<br> b(a|o|e)e - bae, boe, bee<br> b.d - bad, b$d, b d<br>^a - abcd, asdf, a<br>\ . \ | \ \ - .|<br>[A-Z]* [a-z] *$ - ABCabc, zzzyx<br>^((?![A-Z]).) *$ - no-caps-here, $ymb01s, a4e, f!ne</p>
+</blockquote>
+<p><strong>正则表达式在邮箱中的应用</strong></p>
+<p><em>邮箱格式组成可以示例为：<a href="mailto:&#x68;&#x61;&#x6c;&#101;&#95;&#54;&#54;&#x36;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x68;&#x61;&#x6c;&#101;&#95;&#54;&#54;&#x36;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></em></p>
+<p>邮箱地址的第一部分至少包括一种内容：大写字母[A-Z]，小写字母[a-z]，数字[0-9]，下划线 _，点号.，加号+</p>
+<blockquote>
+<p>[A-Za-z0-9. _+]</p>
+</blockquote>
+<p>之后邮箱的地址中会包含一个@符号：只能出现在中间且只出现一次</p>
+<blockquote>
+<p>+@</p>
+</blockquote>
+<p>符合@之后，邮箱地址还必须至少包含一个大写或小写字母</p>
+<blockquote>
+<p>[A-Za-z]</p>
+</blockquote>
+<p>之后跟一个.号</p>
+<blockquote>
+<p>.</p>
+</blockquote>
+<p>最后邮箱后面带上邮箱后缀</p>
+<blockquote>
+<p>(com|org|net|edu)</p>
+</blockquote>
+<p>最终的邮箱正则表达式为：</p>
+<blockquote>
+<p>[A-Za-z0-9\ ._+]+@[A-Za-z]+.(net|org|com|edu)</p>
+</blockquote>
+<p>注：正则表达式中的\转义字符其实可以理解成word中的转换为文本格式，这里是将符号等转换成文本格式。</p>
+</li>
+</ol>
+
+      </section>
+      <section class="extra">
+        
+        
+        <section class="donate">
+  <div class="qrcode">
+    <img   class="lazyload" data-original="https://i.loli.net/2020/10/13/HZi2Dadc9Qjtfu3.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+        
+<nav class="nav">
+  
+  
+    <a href="/2020/10/21/WebScrapingwithPython-chapter02/"><i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+</section>
+      
+    </section>
+  </div>
+</article>
+  </div>
 </main>
   <footer class="footer">
   <div class="footer-social">
